@@ -5,4 +5,10 @@
         void Write(TData data);
 
     }
+
+    public interface IDataWriter<TData, TGeneratedId>
+    {
+        TGeneratedId Write(TData data);
+
+    }
 }
