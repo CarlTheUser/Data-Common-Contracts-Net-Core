@@ -113,7 +113,7 @@ namespace Data.Common.Contracts
 
     public abstract class AsyncPagedDataSource<T> : IAsyncOneWayDataSource<T>
     {
-        private static readonly T[] EMPTY = new T[] { };
+        private static readonly T[] EMPTY = Array.Empty<T>();
 
         private readonly IDictionary<int, IEnumerable<T>> previousResults;
         public IEnumerable<T> Entirety => previousResults.Values.SelectMany(cached => cached);
@@ -164,7 +164,7 @@ namespace Data.Common.Contracts
         {
             if (page > 0)
             {
-                if (previousResults.TryGetValue(page, out IEnumerable<T> cached)) return cached;
+                if (previousResults.TryGetValue(page, out IEnumerable<T>? cached)) return cached;
                 else
                 {
                     IIndexRange range = CalculatePageDimensions(page);
