@@ -8,7 +8,7 @@ namespace Data.Common.Contracts
 {
     public abstract class PagedDataSource<T> : IOneWayDataSource<T>
     {
-        private static readonly T[] EMPTY = new T[] { };
+        private static readonly T[] EMPTY = Array.Empty<T>();
 
         private readonly IDictionary<int, IEnumerable<T>> previousResults;
         public IEnumerable<T> Entirety => previousResults.Values.SelectMany(cached => cached);
@@ -30,7 +30,7 @@ namespace Data.Common.Contracts
         {
             int nextPage = CurrentPage + 1;
 
-            if (previousResults.TryGetValue(nextPage, out IEnumerable<T> cached)) return cached;
+            if (previousResults.TryGetValue(nextPage, out IEnumerable<T>? cached)) return cached;
             else
             {
                 T[] currentResult = EMPTY;
