@@ -11,7 +11,7 @@ namespace Data.Common.Contracts
 
     public interface IAsyncRepository<TKey, TItem>
     {
-        Task<TItem> Find(TKey key, CancellationToken token);
+        Task<TItem> FindAsync(TKey key, CancellationToken token);
         Task SaveAsync(TItem item, CancellationToken token);
     }
 }
