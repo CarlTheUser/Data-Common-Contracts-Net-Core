@@ -7,7 +7,7 @@ namespace Data.Common.Contracts
 
     }
 
-    public interface IEventStore
+    public interface IDataEventSource
     {
         IEnumerable<DataEvent> ReleaseEvents();
     }

@@ -1,4 +1,7 @@
-﻿namespace Data.Common.Contracts
+﻿using System.Threading;
+using System.Threading.Tasks;
+
+namespace Data.Common.Contracts
 {
     public interface IDataWriter<TData>
     {
@@ -9,6 +12,18 @@
     public interface IDataWriter<TData, TGeneratedId>
     {
         TGeneratedId Write(TData data);
+
+    }
+
+    public interface IAsyncDataWriter<TData>
+    {
+        Task WriteAsync(TData data, CancellationToken token);
+
+    }
+
+    public interface IAsyncDataWriter<TData, TGeneratedId>
+    {
+        Task<TGeneratedId> WriteAsync(TData data, CancellationToken token);
 
     }
 }
