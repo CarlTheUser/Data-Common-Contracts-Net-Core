@@ -4,13 +4,23 @@ using System.Threading.Tasks;
 
 namespace Data.Common.Contracts
 {
-    public interface IDataSourceIterator<T>
+    public interface IDataSourceIterator<TItem>
     {
-        void Iterate(Action<T> itemCallback);
+        void Iterate(Action<TItem> itemCallback);
     }
 
-    public interface IAsyncDataSourceIterator<T>
+    public interface IDataSourceIterator<TItem, TParameter>
     {
-        Task IterateAsync(Action<T> itemCallback, CancellationToken token);
+        void Iterate(Action<TItem> itemCallback, TParameter parameter);
+    }
+
+    public interface IAsyncDataSourceIterator<TItem>
+    {
+        Task IterateAsync(Action<TItem> itemCallback, CancellationToken token);
+    }
+
+    public interface IAsyncDataSourceIterator<TItem, TParameter>
+    {
+        Task IterateAsync(Action<TItem> itemCallback, TParameter parameter, CancellationToken token);
     }
 }
