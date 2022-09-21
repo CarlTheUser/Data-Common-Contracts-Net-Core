@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Data.Common.Contracts
 {
@@ -9,6 +10,6 @@ namespace Data.Common.Contracts
 
     public interface IAsyncDataDestroyer<T>
     {
-        Task Destroy(T item);
+        Task Destroy(T item, CancellationToken cancellationToken);
     }
 }
