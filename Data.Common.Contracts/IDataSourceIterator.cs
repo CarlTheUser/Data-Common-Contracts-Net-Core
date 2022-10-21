@@ -16,11 +16,11 @@ namespace Data.Common.Contracts
 
     public interface IAsyncDataSourceIterator<TItem>
     {
-        Task IterateAsync(Action<TItem> itemCallback, CancellationToken token);
+        Task IterateAsync(Action<TItem> itemCallback, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncDataSourceIterator<TItem, TParameter>
     {
-        Task IterateAsync(Action<TItem> itemCallback, TParameter parameter, CancellationToken token);
+        Task IterateAsync(Action<TItem> itemCallback, TParameter parameter, CancellationToken cancellationToken = default);
     }
 }

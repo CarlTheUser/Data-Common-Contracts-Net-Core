@@ -17,13 +17,13 @@ namespace Data.Common.Contracts
 
     public interface IAsyncDataWriter<TData>
     {
-        Task WriteAsync(TData data, CancellationToken token);
+        Task WriteAsync(TData data, CancellationToken cancellationToken = default);
 
     }
 
     public interface IAsyncDataWriter<TData, TGeneratedId>
     {
-        Task<TGeneratedId> WriteAsync(TData data, CancellationToken token);
+        Task<TGeneratedId> WriteAsync(TData data, CancellationToken cancellationToken = default);
 
     }
 }

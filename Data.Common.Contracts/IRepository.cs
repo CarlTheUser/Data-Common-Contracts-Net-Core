@@ -11,8 +11,8 @@ namespace Data.Common.Contracts
 
     public interface IAsyncRepository<TKey, TItem>
     {
-        Task<TItem?> FindAsync(TKey key, CancellationToken token);
-        Task SaveAsync(TItem item, CancellationToken token);
+        Task<TItem?> FindAsync(TKey key, CancellationToken cancellationToken = default);
+        Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
     }
 
     //Template for specific implementations: SqlSpec(string ToSqlClase()), GenericSpec(bool IsSatisfiedBy(condition))... etc.
@@ -29,7 +29,7 @@ namespace Data.Common.Contracts
 
     public interface IAsyncRepository<TItem>
     {
-        Task<TItem?> FindAsync(ISpecification specs, CancellationToken token);
-        Task SaveAsync(TItem item, CancellationToken token);
+        Task<TItem?> FindAsync(ISpecification specs, CancellationToken cancellationToken = default);
+        Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
     }
 }

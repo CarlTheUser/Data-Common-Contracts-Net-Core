@@ -10,6 +10,6 @@ namespace Data.Common.Contracts
 
     public interface IAsyncDataDestroyer<T>
     {
-        Task Destroy(T item, CancellationToken cancellationToken);
+        Task Destroy(T item, CancellationToken cancellationToken = default);
     }
 }

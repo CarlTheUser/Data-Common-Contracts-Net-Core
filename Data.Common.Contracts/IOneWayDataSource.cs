@@ -11,6 +11,6 @@ namespace Data.Common.Contracts
 
     public interface IAsyncOneWayDataSource<T>
     {
-        Task<IEnumerable<T>> NextAsync(CancellationToken token);
+        Task<IEnumerable<T>> NextAsync(CancellationToken cancellationToken = default);
     }
 }

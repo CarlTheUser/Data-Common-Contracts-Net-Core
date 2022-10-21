@@ -50,46 +50,46 @@ namespace Data.Common.Contracts
 
     public interface IAsyncQuery<TReturn>
     {
-        Task<TReturn> ExecuteAsync(CancellationToken token);
+        Task<TReturn> ExecuteAsync(CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, TParameter>
     {
-        Task<TReturn> ExecuteAsync(TParameter parameter, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter parameter, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3, in TParameter4>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3, in TParameter4, in TParameter5>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3, in TParameter4, in TParameter5, in TParameter6>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, CancellationToken cancellationToken = default);
     }
 
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3, in TParameter4, in TParameter5, in TParameter6, in TParameter7>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, TParameter7 parameter7, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, TParameter7 parameter7, CancellationToken cancellationToken = default);
     }
     
     public interface IAsyncQuery<TReturn, in TParameter1, in TParameter2, in TParameter3, in TParameter4, in TParameter5, in TParameter6, in TParameter7, in TParameter8>
     {
-        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, TParameter7 parameter7, TParameter8 parameter8, CancellationToken token);
+        Task<TReturn> ExecuteAsync(TParameter1 parameter1, TParameter2 parameter2, TParameter3 parameter3, TParameter4 parameter4, TParameter5 parameter5, TParameter6 parameter6, TParameter7 parameter7, TParameter8 parameter8, CancellationToken cancellationToken = default);
     }
 }
