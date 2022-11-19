@@ -39,7 +39,7 @@ namespace Data.Common.Contracts
 
         public interface IHandlesSpecificationAsync<TSpecification, TItem> where TSpecification : ISpecification<TItem>
         {
-            TItem? FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
+            Task<TItem?> FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
         }
 
         public interface IRepository<TKey, TItem> : IHandlesSpecification<KeySpecification<TItem, TKey>, TItem>
