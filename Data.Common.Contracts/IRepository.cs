@@ -15,21 +15,41 @@ namespace Data.Common.Contracts
         Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
     }
 
-    //Template for specific implementations: SqlSpec(string ToSqlClase()), GenericSpec(bool IsSatisfiedBy(condition))... etc.
-    public interface ISpecification
+    namespace SpecificationRepositories
     {
+        public interface ISpecification<T>
+        {
 
-    }
+        }
 
-    public interface IRepository<TItem>
-    {
-        TItem? Find(ISpecification specs);
-        void Save(TItem item);
-    }
+        public class KeySpecification<TItem, TKey> : ISpecification<TItem>
+        {
+            public TKey Key { get; }
 
-    public interface IAsyncRepository<TItem>
-    {
-        Task<TItem?> FindAsync(ISpecification specs, CancellationToken cancellationToken = default);
-        Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
+            public KeySpecification(TKey key)
+            {
+                Key = key;
+            }
+        }
+
+        public interface IHandlesSpecification<TSpecification, TItem> where TSpecification : ISpecification<TItem>
+        {
+            TItem? Find(TSpecification specification);
+        }
+
+        public interface IHandlesSpecificationAsync<TSpecification, TItem> where TSpecification : ISpecification<TItem>
+        {
+            TItem? FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
+        }
+
+        public interface IRepository<TKey, TItem> : IHandlesSpecification<KeySpecification<TItem, TKey>, TItem>
+        {
+            void Save(TItem item);
+        }
+
+        public interface IAsyncRepository<TKey, TItem> : IHandlesSpecificationAsync<KeySpecification<TItem, TKey>, TItem>
+        {
+            Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
+        }
     }
 }
