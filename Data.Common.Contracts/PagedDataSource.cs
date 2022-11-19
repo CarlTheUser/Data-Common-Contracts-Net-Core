@@ -8,8 +8,6 @@ namespace Data.Common.Contracts
 {
     public abstract class PagedDataSource<T> : IOneWayDataSource<T>
     {
-        private static readonly T[] EMPTY = Array.Empty<T>();
-
         private readonly IDictionary<int, IEnumerable<T>> previousResults;
         public IEnumerable<T> Entirety => previousResults.Values.SelectMany(cached => cached);
 
@@ -33,13 +31,13 @@ namespace Data.Common.Contracts
             if (previousResults.TryGetValue(nextPage, out IEnumerable<T>? cached)) return cached;
             else
             {
-                T[] currentResult = EMPTY;
+                T[] currentResult = Array.Empty<T>();
 
                 if (!EndReached)
                 {
                     IIndexRange range = CalculatePageDimensions(nextPage);
 
-                    currentResult = _Get(range).ToArray();
+                    currentResult = Get(range).ToArray();
 
                     int length = currentResult.Length;
 
@@ -59,12 +57,12 @@ namespace Data.Common.Contracts
         {
             if (page > 0)
             {
-                if (previousResults.TryGetValue(page, out IEnumerable<T> cached)) return cached;
+                if (previousResults.TryGetValue(page, out IEnumerable<T>? cached)) return cached;
                 else
                 {
                     IIndexRange range = CalculatePageDimensions(page);
 
-                    T[] currentResult = _Get(range).ToArray();
+                    T[] currentResult = Get(range).ToArray();
 
                     if (currentResult.Length > 0)
                     {
@@ -74,13 +72,13 @@ namespace Data.Common.Contracts
 
                         return currentResult;
                     }
-                    else return EMPTY;
+                    else return Array.Empty<T>();
                 }
             }
             else throw new ArgumentException("Cannot browse negative index.");
         }
 
-        protected abstract IEnumerable<T> _Get(IIndexRange indexRange);
+        protected abstract IEnumerable<T> Get(IIndexRange indexRange);
 
         protected interface IIndexRange
         {
@@ -113,8 +111,6 @@ namespace Data.Common.Contracts
 
     public abstract class AsyncPagedDataSource<T> : IAsyncOneWayDataSource<T>
     {
-        private static readonly T[] EMPTY = Array.Empty<T>();
-
         private readonly IDictionary<int, IEnumerable<T>> previousResults;
         public IEnumerable<T> Entirety => previousResults.Values.SelectMany(cached => cached);
 
@@ -131,20 +127,20 @@ namespace Data.Common.Contracts
             previousResults = new Dictionary<int, IEnumerable<T>>();
         }
 
-        public async Task<IEnumerable<T>> NextAsync(CancellationToken token)
+        public async Task<IEnumerable<T>> NextAsync(CancellationToken cancellationToken = default)
         {
             int nextPage = CurrentPage + 1;
 
             if (previousResults.TryGetValue(nextPage, out IEnumerable<T>? cached)) return cached;
             else
             {
-                T[] currentResult = EMPTY;
+                T[] currentResult = Array.Empty<T>();
 
                 if (!EndReached)
                 {
                     IIndexRange range = CalculatePageDimensions(nextPage);
 
-                    currentResult = (await Get(range, token)).ToArray();
+                    currentResult = (await Get(range, cancellationToken)).ToArray();
 
                     int length = currentResult.Length;
 
@@ -160,7 +156,7 @@ namespace Data.Common.Contracts
             }
         }
 
-        public async Task<IEnumerable<T>> JumpToPage(int page, CancellationToken token)
+        public async Task<IEnumerable<T>> JumpToPage(int page, CancellationToken cancellationToken = default)
         {
             if (page > 0)
             {
@@ -169,7 +165,7 @@ namespace Data.Common.Contracts
                 {
                     IIndexRange range = CalculatePageDimensions(page);
 
-                    T[] currentResult = (await Get(range, token)).ToArray();
+                    T[] currentResult = (await Get(range, cancellationToken)).ToArray();
 
                     if (currentResult.Length > 0)
                     {
@@ -179,13 +175,13 @@ namespace Data.Common.Contracts
 
                         return currentResult;
                     }
-                    else return EMPTY;
+                    else return Array.Empty<T>();
                 }
             }
             else throw new ArgumentException("Cannot browse negative index.");
         }
 
-        protected abstract Task<IEnumerable<T>> Get(IIndexRange indexRange, CancellationToken token);
+        protected abstract Task<IEnumerable<T>> Get(IIndexRange indexRange, CancellationToken cancellationToken = default);
 
         protected interface IIndexRange
         {
