@@ -34,12 +34,12 @@ namespace Data.Common.Contracts
 
         public interface IHandlesSpecification<TSpecification, TItem> where TSpecification : ISpecification<TItem>
         {
-            TItem? Find(TSpecification specification);
+            TItem Find(TSpecification specification);
         }
 
         public interface IHandlesSpecificationAsync<TSpecification, TItem> where TSpecification : ISpecification<TItem>
         {
-            Task<TItem?> FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
+            Task<TItem> FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
         }
 
         public interface IRepository<TKey, TItem> : IHandlesSpecification<KeySpecification<TItem, TKey>, TItem>
