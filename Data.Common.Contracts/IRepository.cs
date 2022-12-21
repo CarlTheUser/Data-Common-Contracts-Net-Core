@@ -3,15 +3,23 @@ using System.Threading.Tasks;
 
 namespace Data.Common.Contracts
 {
-    public interface IRepository<TKey, TItem>
+    public interface IReadOnlyRepository<TKey, TItem>
     {
         TItem? Find(TKey key);
+    }
+
+    public interface IRepository<TKey, TItem> : IReadOnlyRepository<TKey,TItem>
+    {
         void Save(TItem item);
     }
 
-    public interface IAsyncRepository<TKey, TItem>
+    public interface IAsyncReadOnlyRepository<TKey, TItem>
     {
         Task<TItem?> FindAsync(TKey key, CancellationToken cancellationToken = default);
+    }
+
+    public interface IAsyncRepository<TKey, TItem> : IAsyncReadOnlyRepository<TKey, TItem>
+    {
         Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
     }
 
@@ -42,12 +50,20 @@ namespace Data.Common.Contracts
             Task<TItem> FindAsync(TSpecification specification, CancellationToken cancellationToken = default);
         }
 
-        public interface IRepository<TKey, TItem> : IHandlesSpecification<KeySpecification<TItem, TKey>, TItem>
+        public interface IReadOnlyRepository<TKey, TItem> : IHandlesSpecification<KeySpecification<TItem, TKey>, TItem>
+        {
+        }
+
+        public interface IRepository<TKey, TItem> : IReadOnlyRepository<TKey, TItem>
         {
             void Save(TItem item);
         }
 
-        public interface IAsyncRepository<TKey, TItem> : IHandlesSpecificationAsync<KeySpecification<TItem, TKey>, TItem>
+        public interface IAsyncReadOnlyRepository<TKey, TItem> : IHandlesSpecificationAsync<KeySpecification<TItem, TKey>, TItem>
+        {
+        }
+
+        public interface IAsyncRepository<TKey, TItem> : IAsyncReadOnlyRepository<TKey, TItem>
         {
             Task SaveAsync(TItem item, CancellationToken cancellationToken = default);
         }
